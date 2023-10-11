@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" modified="2023-06-21T08:41:01.869Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="pxyROiTD2Bp96iqJz20i" version="21.3.8" type="device">
+  <diagram name="Strona-1" id="o3XBVicY7QFt506plkZz">
+    <mxGraphModel dx="1290" dy="573" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ME7bbySFGr6xeITDo412-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-1" target="ME7bbySFGr6xeITDo412-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-1" value="Input0 is On" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="30" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-2" target="ME7bbySFGr6xeITDo412-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-2" value="Start flow in with PiD" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="205" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-4" target="ME7bbySFGr6xeITDo412-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-4" value="Reach limit of 80&lt;br&gt;" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-6" value="Stop flow after reaching limit&amp;nbsp;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="310" y="440" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-8" target="ME7bbySFGr6xeITDo412-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-8" value="Input1 is On" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="414" y="30" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-9" target="ME7bbySFGr6xeITDo412-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-9" value="Start flow in with PiD" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="414" y="220" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ME7bbySFGr6xeITDo412-11" target="ME7bbySFGr6xeITDo412-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ME7bbySFGr6xeITDo412-11" value="Reach limit of 0" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

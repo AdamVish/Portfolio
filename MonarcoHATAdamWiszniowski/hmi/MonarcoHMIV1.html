@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<!-- REX HMI Template version=2.50.12-14711 -->
+
+<html class="mdc-typography">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="google" content="notranslate" />
+
+    <meta name="viewport" content="width=device-width">
+    <!-- Allow fullscreen on mobile platforms -->
+    <meta name="mobile-web-app-capable" content="yes"><!-- Chrome -->    
+    <meta name="apple-mobile-web-app-capable" content="yes"><!-- iOS -->    
+
+    <link rel="icon shortcut" sizes="any" href="images/favicon.ico">
+    
+    <link rel="apple-touch-icon" href="/resources/images/homescreen-icon.png">
+    <link rel="icon" sizes="192x192" href="/resources/images/homescreen-icon.png">
+
+
+    <title>
+        HMI Mini Project: Water Tank Simulator
+    </title>
+
+    <!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui/jquery-ui-1.12.1-custom.min.css">
+		<link rel="stylesheet" type="text/css" href="css/rex-hmi.min.css">
+
+
+    <!-- CUSTOM CSS -->
+		<link rel="stylesheet" type="text/css" href="css/rex-ui-svg-general.css">
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/rexhmi-vendor.min.js?version=2.50.12-14711"></script>
+		<script type="text/javascript" src="js/rexhmi.min.js?version=2.50.12-14711"></script>
+
+
+    <!-- CUSTOM JS -->
+		<script type="text/javascript" src="js/rex-ui-svg-charts.js"></script>
+		<script type="text/javascript" src="js/rex-ui-svg-general.js"></script>
+		<script type="text/javascript" src="js/rex-ui-svg-home.js"></script>
+		<script type="text/javascript" src="js/rex-ui-svg-hvac.js"></script>
+		<script type="text/javascript" src="js/rex-ui-svg-proc.js"></script>
+
+		<script type="text/javascript">
+        // Uncomment the following function if necessary
+        // The following function is called before the REX HMI is automatically connected to the
+        // given target URL
+        /* REX.HMI.init = function() {
+
+                // Set REX Target URL (use only if the target is NOT running on the same machine)
+                // REX.HMI.setTargetUrl('ws://127.0.0.1:8008/rex');
+
+                // Set refresh rate (Default: 100 ms)
+                // REX.HMI.setRefreshRate(100);
+
+                // Change title of the page
+                // REX.HMI.setTitle('TITLE');
+
+            }; */
+    </script>
+
+</head>
+
+<body>
+    <script>
+        window.startTime = new Date();
+    </script>
+    <header id="header">        
+        <a id="logo" href="/"></a>
+        <div id="header-title" class="header-title-with-info-and-hearth-beat">
+            Header
+        </div>
+        <time id="heart-beat-clock" class="current-time" style="display:none">XX:XX:XX</time>
+        <div id="heart-beat"></div>
+        <div id="info-btn" class="">            
+            <div id="log-error-counter" class="">0</div>
+            <div id="alarms-error-counter" class="">0</div>
+        </div>
+    </header>
+    <div id="main-block">
+        <aside id="info" class="">
+            <div id="controls">
+                <table class="table-list">
+                    <tr>
+                        <td>User</td>
+                        <td class='info-whoami'>
+                            <span class="whoami">XXXXX</span>&nbsp;
+                            <form id="info-logout" action="/logout" method="POST">
+                                (<button type="submit">logout</button>)
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td class="info-version">X.X.X-XXXX</td>
+                    </tr>
+                    <tr>
+                        <td>Target time</td>
+                        <td class="current-time">XX:XX:XX</td>
+                    </tr>
+                    <tr>
+                        <td>Refresh rate</td>
+                        <td>
+                            <div class="mdc-text-field mdc-text-field--fullwidth" data-mdc-auto-init="MDCTextField">
+                                <input type="text" id="target-refresh-rate" class="mdc-text-field__input">
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>URL</td>
+                        <td>
+                            <div class="mdc-text-field mdc-text-field--fullwidth" data-mdc-auto-init="MDCTextField">
+                                <input type="text" id="target-url" class="mdc-text-field__input">
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Virtual keyboard</td>
+                    <td>
+                            <div class="mdc-checkbox mdc-checkbox--primary">
+                                <input type="checkbox" id="virtual-keyboard" name="virtual-keyboard" class="mdc-checkbox__native-control">
+                                <div class="mdc-checkbox__background">
+                                    <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                                        <path class="mdc-checkbox__checkmark__path" fill="none" stroke="white" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                                    </svg>
+                                    <div class="mdc-checkbox__mixedmark"></div>
+                                </div>
+                            </div>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="log">
+                <table></table>
+            </div>
+        </aside>        
+        <main id="content" class="">
+            <div class="rex__loading-screen">
+                <div class="spinner"></div>
+            </div>
+            <!-- BEGIN OF CUSTOM CONTENT -->
+			<div class="rexsvg-wrapper">
+			<!-- Created with Inkscape (http://www.inkscape.org/) --><svg xmlns:rexsvg="http://www.rexcontrols.com/rexsvg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" id="svg8-7a3a5" sodipodi:docname="MonarcoHMIV1.hmi.svg" inkscape:version="0.92.3 (604f7c89c2, 2020-03-02, custom)" viewBox="0 0 1246 800" class="rexsvg" rexsvg:module="REXSVG">
+			  <defs id="defs2-7a3a5">
+			    <linearGradient gradientTransform="translate(-2.500022,-2.5000088)" inkscape:collect="always" xlink:href="#linearGradient2122-7a3a5" id="linearGradient1294-7a3a5" gradientUnits="userSpaceOnUse" x1="12.505092" y1="12.065967" x2="1238.5" y2="792.5"/>
+			    <linearGradient id="linearGradient2122-7a3a5" gradientUnits="userSpaceOnUse" x1="9.2475996" y1="-7.875" x2="71.097" y2="27.8286">
+			      <stop offset="0.4" style="stop-color:#0074C5" id="stop864-8-7a3a5"/>
+			      <stop offset="0.95" style="stop-color:#00C8B4" id="stop866-0-7a3a5"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient3946-7a3a5">
+			      <stop id="stop3948-7a3a5" offset="0" style="stop-color:#f93b00;stop-opacity:1;"/>
+			      <stop style="stop-color:#ca0000;stop-opacity:1;" offset="0.54876602" id="stop3954-7a3a5"/>
+			      <stop id="stop3950-7a3a5" offset="1" style="stop-color:#ff440a;stop-opacity:1;"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient3929-7a3a5">
+			      <stop id="stop3931-7a3a5" offset="0" style="stop-color:#ff5151;stop-opacity:1;"/>
+			      <stop id="stop3933-7a3a5" offset="1" style="stop-color:#ae0000;stop-opacity:1;"/>
+			    </linearGradient>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient8820-2-7a3a5" id="linearGradient9575-7a3a5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.76761874,0,0,0.55903828,-60.418061,-70.931279)" x1="124.83475" y1="166.04156" x2="124.83475" y2="126.87131"/>
+			    <linearGradient id="linearGradient8820-2-7a3a5">
+			      <stop style="stop-color:#646464;stop-opacity:1;" offset="0" id="stop8822-7-7a3a5"/>
+			      <stop id="stop8824-7-7a3a5" offset="0.2735613" style="stop-color:#c8c8c8;stop-opacity:1;"/>
+			      <stop id="stop8826-1-7a3a5" offset="0.5" style="stop-color:#ffffff;stop-opacity:1;"/>
+			      <stop style="stop-color:#787878;stop-opacity:1;" offset="1" id="stop8828-2-7a3a5"/>
+			    </linearGradient>
+			    <linearGradient y2="126.87131" x2="124.83475" y1="166.04156" x1="124.83475" gradientTransform="matrix(0.54886876,0,0,0.55903828,-29.345425,-73.013297)" gradientUnits="userSpaceOnUse" id="linearGradient3143-7a3a5" xlink:href="#linearGradient8820-2-7a3a5" inkscape:collect="always"/>
+			    <linearGradient y2="126.87131" x2="124.83475" y1="166.04156" x1="124.83475" gradientTransform="matrix(0.36136878,0,0,0.83490036,-2.3748405,-113.44303)" gradientUnits="userSpaceOnUse" id="linearGradient3147-7a3a5" xlink:href="#linearGradient8820-2-7a3a5" inkscape:collect="always"/>
+			    <linearGradient gradientUnits="userSpaceOnUse" y2="16.404547" x2="50.546066" y1="6.5540776" x1="50.546066" id="linearGradient3935-7a3a5" xlink:href="#linearGradient3929-7a3a5" inkscape:collect="always"/>
+			    <linearGradient gradientUnits="userSpaceOnUse" y2="45.630138" x2="56.320065" y1="45.630138" x1="42.406574" id="linearGradient3952-7a3a5" xlink:href="#linearGradient3946-7a3a5" inkscape:collect="always"/>
+			    <linearGradient y2="126.87131" x2="124.83475" y1="166.04156" x1="124.83475" gradientTransform="matrix(0.05407715,0,0,0.85410659,4.9194519,-116.25785)" gradientUnits="userSpaceOnUse" id="linearGradient3958-7a3a5" xlink:href="#linearGradient8820-2-7a3a5" inkscape:collect="always"/>
+			    <linearGradient y2="126.87131" x2="124.83475" y1="166.04156" x1="124.83475" gradientTransform="matrix(0.05407715,0,0,0.85410659,78.919452,-116.25785)" gradientUnits="userSpaceOnUse" id="linearGradient3962-7a3a5" xlink:href="#linearGradient8820-2-7a3a5" inkscape:collect="always"/>
+			    <linearGradient id="linearGradient3092-7a3a5">
+			      <stop id="stop3094-7a3a5" offset="0" style="stop-color:#ffffff;stop-opacity:1;"/>
+			      <stop id="stop3096-7a3a5" offset="1" style="stop-color:#000000;stop-opacity:1;"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient3074-7a3a5">
+			      <stop style="stop-color:#000000;stop-opacity:1;" offset="0" id="stop3076-7a3a5"/>
+			      <stop id="stop3078-7a3a5" offset="0.24708296" style="stop-color:#a3a3a3;stop-opacity:1;"/>
+			      <stop id="stop3080-7a3a5" offset="0.5" style="stop-color:#ffffff;stop-opacity:1;"/>
+			      <stop style="stop-color:#656565;stop-opacity:1;" offset="0.6946134" id="stop3082-7a3a5"/>
+			      <stop id="stop3084-7a3a5" offset="0.84730673" style="stop-color:#e6e6e6;stop-opacity:1;"/>
+			      <stop style="stop-color:#383838;stop-opacity:1;" offset="1" id="stop3086-7a3a5"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient3060-7a3a5">
+			      <stop id="stop3062-7a3a5" offset="0" style="stop-color:#000000;stop-opacity:1;"/>
+			      <stop style="stop-color:#b1b1b1;stop-opacity:1;" offset="0.26020703" id="stop3064-7a3a5"/>
+			      <stop style="stop-color:#ffffff;stop-opacity:1;" offset="0.50181192" id="stop3066-7a3a5"/>
+			      <stop id="stop3068-7a3a5" offset="0.69327664" style="stop-color:#969696;stop-opacity:1;"/>
+			      <stop style="stop-color:#e6e6e6;stop-opacity:1;" offset="0.84584856" id="stop3070-7a3a5"/>
+			      <stop id="stop3072-7a3a5" offset="1" style="stop-color:#383838;stop-opacity:1;"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient3044-7a3a5">
+			      <stop style="stop-color:#000000;stop-opacity:1;" offset="0" id="stop3046-7a3a5"/>
+			      <stop id="stop3048-7a3a5" offset="0.36519343" style="stop-color:#a5a5a5;stop-opacity:1;"/>
+			      <stop id="stop3050-7a3a5" offset="0.49562556" style="stop-color:#ffffff;stop-opacity:1;"/>
+			      <stop style="stop-color:#646464;stop-opacity:1;" offset="0.6231643" id="stop3052-7a3a5"/>
+			      <stop id="stop3054-7a3a5" offset="0.84584856" style="stop-color:#e6e6e6;stop-opacity:1;"/>
+			      <stop style="stop-color:#383838;stop-opacity:1;" offset="1" id="stop3056-7a3a5"/>
+			    </linearGradient>
+			    <linearGradient id="linearGradient2986-7a3a5">
+			      <stop id="stop2988-7a3a5" offset="0" style="stop-color:#000000;stop-opacity:1;"/>
+			      <stop style="stop-color:#a5a5a5;stop-opacity:1;" offset="0.25" id="stop2996-7a3a5"/>
+			      <stop style="stop-color:#ffffff;stop-opacity:1;" offset="0.5" id="stop2994-7a3a5"/>
+			      <stop id="stop2998-7a3a5" offset="0.6946134" style="stop-color:#646464;stop-opacity:1;"/>
+			      <stop style="stop-color:#e6e6e6;stop-opacity:1;" offset="0.84730673" id="stop3000-7a3a5"/>
+			      <stop id="stop2990-7a3a5" offset="1" style="stop-color:#383838;stop-opacity:1;"/>
+			    </linearGradient>
+			    <linearGradient gradientTransform="matrix(1.0000691,0,0,0.77747417,-81.408061,-33.846128)" gradientUnits="userSpaceOnUse" y2="280.2233" x2="252.83955" y1="280.2233" x1="81.334702" id="linearGradient2992-7a3a5" xlink:href="#linearGradient2986-7a3a5" inkscape:collect="always"/>
+			    <linearGradient y2="280.2233" x2="252.83955" y1="280.2233" x1="81.334702" gradientTransform="matrix(0.99942636,0,0,-0.08513384,-81.341152,46.852942)" gradientUnits="userSpaceOnUse" id="linearGradient3036-7a3a5" xlink:href="#linearGradient3074-7a3a5" inkscape:collect="always"/>
+			    <radialGradient r="85.503304" fy="336.98386" fx="153.96599" cy="336.98386" cx="153.96599" gradientTransform="matrix(0.88219298,0.75493769,0.99317424,-1.1605995,-382.90793,293.36537)" gradientUnits="userSpaceOnUse" id="radialGradient3104-7a3a5" xlink:href="#linearGradient3092-7a3a5" inkscape:collect="always"/>
+			    <radialGradient r="85.503304" fy="336.98386" fx="153.96599" cy="336.98386" cx="153.96599" gradientTransform="matrix(0.88219298,-0.75493769,0.99317424,1.1605995,-382.90793,42.411052)" gradientUnits="userSpaceOnUse" id="radialGradient3108-7a3a5" xlink:href="#linearGradient3092-7a3a5" inkscape:collect="always"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient8820-2-7a3a5" id="linearGradient370-7a3a5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.54886876,0,0,0.55903828,-29.345425,-73.013297)" x1="124.83475" y1="166.04156" x2="124.83475" y2="126.87131"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient8820-2-7a3a5" id="linearGradient372-7a3a5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.36136878,0,0,0.83490036,-2.3748405,-113.44303)" x1="124.83475" y1="166.04156" x2="124.83475" y2="126.87131"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient8820-2-7a3a5" id="linearGradient374-7a3a5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.05407715,0,0,0.85410659,4.9194519,-116.25785)" x1="124.83475" y1="166.04156" x2="124.83475" y2="126.87131"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient8820-2-7a3a5" id="linearGradient376-7a3a5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0.05407715,0,0,0.85410659,78.919452,-116.25785)" x1="124.83475" y1="166.04156" x2="124.83475" y2="126.87131"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3946-7a3a5" id="linearGradient378-7a3a5" gradientUnits="userSpaceOnUse" x1="42.406574" y1="45.630138" x2="56.320065" y2="45.630138"/>
+			    <linearGradient inkscape:collect="always" xlink:href="#linearGradient3929-7a3a5" id="linearGradient380-7a3a5" gradientUnits="userSpaceOnUse" x1="50.546066" y1="6.5540776" x2="50.546066" y2="16.404547"/>
+			  </defs>
+			  <sodipodi:namedview id="base-7a3a5" pagecolor="#eef1f0" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:zoom="0.70710678" inkscape:cx="399.11413" inkscape:cy="406.62415" inkscape:document-units="px" inkscape:current-layer="tank_area" showgrid="false" units="px" inkscape:window-width="1920" inkscape:window-height="991" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:window-maximized="1"/>
+			  <metadata id="metadata5-7a3a5">
+			    <rdf:RDF>
+			      <cc:Work rdf:about="">
+			        <dc:format>image/svg+xml</dc:format>
+			        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+			        <dc:title/>
+			        <dc:identifier>Created in REXYGEN HMI Designer</dc:identifier>
+			      </cc:Work>
+			    </rdf:RDF>
+			  </metadata>
+			  <g sodipodi:insensitive="true" transform="translate(0,-85)" height="80" width="200" id="HMIConfig-7a3a5" rexsvg:rexversion="2.50.12-14711" rexsvg:version="15" rexsvg:module="HMIConfig">
+			    <desc id="desc3016-7a3a5">{
+			"connections":[
+			{
+			"alias":"Display_Water_Level_value",
+			"cstring":"myproject_task.REXLANG:OUTPUT_Y0",
+			"type":"R"
+			},
+			{
+			"alias":"TRND",
+			"cstring":"myproject_task.TRND:y1",
+			"type":"R"
+			},
+			{
+			"alias":"Tank_level",
+			"cstring":"myproject_task.REXLANG:OUTPUT_Y0",
+			"type":"R"
+			},
+			{
+			"alias":"Valve_Drain",
+			"cstring":"myproject_task.CNB_SWITCH_DRAIN:YCN",
+			"type":"W"
+			},
+			{
+			"alias":"Valve_Fill",
+			"cstring":"myproject_task.CNB_SWITCH_FILL:YCN",
+			"type":"W"
+			}
+			],
+			"options":{
+			"header_mode":"",
+			"kiosk_mode":"False",
+			"log_level":"",
+			"refresh_rate":10,
+			"show_clock":"True",
+			"target_url":"",
+			"use_client_time":"False"
+			}
+			}</desc>
+			    </g>
+			  <g inkscape:groupmode="layer" id="background-layer-7a3a5" inkscape:label="background" sodipodi:insensitive="true">
+			    <rect rx="3" ry="3" y="10" x="10" height="780" width="1226" id="backgroud-7a3a5" style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient1294-7a3a5);stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate"/>
+			  </g>
+			  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1-7a3a5">
+			    <g rexsvg:filename="Display.svg" id="Display-7a3a5" rexsvg:version="12" rexsvg:module="Display" transform="matrix(1.6349336,0,0,1.7247608,799.44648,76.663601)">
+			      <title id="blok-7a3a5">Display_Water_Level</title>
+			      <desc id="desc3186-7a3a5">{
+			"connections":{
+			"value":"Display_Water_Level_value"
+			},
+			"options":{
+			"$T":"Display_Water_Level",
+			"color":"#000000",
+			"colorAbove":"#df2626",
+			"colorBelow":"#0074c5",
+			"decimals":0,
+			"format":"number",
+			"offset":0,
+			"rangeMax":10000,
+			"rangeMin":-10000,
+			"scale":1,
+			"text_format":"",
+			"units":""
+			}
+			}</desc>
+			      <text style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:44.85125732px;line-height:0%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle" id="display-7a3a5" x="110" y="65" rexsvg:tag="display">
+			        <tspan id="tspan2986-7a3a5">X</tspan>
+			      </text>
+			    </g>
+			    <g rexsvg:filename="HandleValve.svg" rexsvg:version="12" rexsvg:module="HandleValve" transform="matrix(0.48417138,0,0,0.63569159,562.18025,208.41402)" id="HandleValve-7a3a5" inkscape:label="HandleValve">
+			      <desc id="desc-valve-7a3a5">{
+			"connections":{
+			"FLOW":"Valve_Fill"
+			},
+			"options":{
+			"$T":"Valve_Fill"
+			}
+			}</desc>
+			      <title id="title-valve-7a3a5">Valve_Fill</title>
+			      <g id="valve_area-7a3a5" rexsvg:tag="valve_area" transform="matrix(2.9847661,0,0,2.5551048,-216.01879,-154.44065)">
+			        <rect style="fill:url(#linearGradient3143-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" id="rect8761-6-7a3a5" width="71.502785" height="22" x="13.854188" y="-2.0819006"/>
+			        <rect y="-7.5099421" x="26.06728" height="32.856083" width="47.076595" id="rect3145-7a3a5" style="fill:url(#linearGradient3147-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/>
+			        <rect y="-7.8878565" x="9.175683" height="33.611912" width="7.0447936" id="rect3956-7a3a5" style="fill:url(#linearGradient3958-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/>
+			        <rect style="fill:url(#linearGradient3962-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect3960-7a3a5" width="7.0447936" height="33.611912" x="83.175682" y="-7.8878565"/>
+			        <g id="handle-7a3a5" inkscape:transform-center-y="27.389617" inkscape:transform-center-x="-0.14842334" rexsvg:tag="handle">
+			          <rect inkscape:transform-center-x="-0.084813147" inkscape:transform-center-y="27.372363" rx="6.0695257" y="2.4095294" x="42.687618" height="67.792305" width="14.025768" id="rect3149-7a3a5" style="fill:url(#linearGradient3952-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" ry="6.0695257"/>
+			          <rect ry="6.0695252" style="opacity:0.5;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" id="rect3944-7a3a5" width="3.6318076" height="60.452827" x="43.366123" y="7.2046113" rx="6.0695257"/>
+			          <path sodipodi:nodetypes="zszszsssz" inkscape:connector-curvature="0" id="path3919-7a3a5" d="m 56.727437,9.8231883 c 0,0.8280397 0.336346,3.2820217 -1.052674,4.3039787 -1.38902,1.021958 -4.503407,1.439932 -5.298325,1.439932 -0.794918,0 -4.280156,-0.338822 -5.470447,-1.40827 -1.190291,-1.069449 -0.880552,-3.697564 -0.880552,-4.5256044 0,-0.8280399 0.453579,-3.2929873 1.64387,-4.6011064 1.19029,-1.3081192 3.117293,-1.4594101 4.707129,-1.4594101 1.589836,0 3.601652,0.3254243 4.791943,1.6810344 1.19029,1.35561 1.559056,3.7414059 1.559056,4.5694458 z" style="fill:url(#linearGradient3935-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(1,0,0,1.3394112,-0.6494019,-1.1278042)"/>
+			          <g transform="matrix(1.4960178,0,0,1.4960178,-24.610266,-4.4175569)" id="center_point-7a3a5" rexsvg:tag="center_point">
+			            <circle style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path3937-7a3a5" transform="translate(-0.50887888,-3.3925258)" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			            <circle transform="matrix(0.68727922,0,0,0.68727922,15.166116,0.45349282)" id="path3939-7a3a5" style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			            <circle style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path3942-7a3a5" transform="matrix(0.35757359,0,0,0.35757359,31.692468,4.5084007)" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			          </g>
+			        </g>
+			      </g>
+			      <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 53.26822,-174.59495 410.0025,-141.01022 53.26822,-88.71299" id="path383-7a3a5" inkscape:connector-curvature="0"/>
+			    </g>
+			    <g rexsvg:filename="Filter.svg" rexsvg:version="12" rexsvg:module="Filter" transform="translate(139.02213,53.910968)" id="Filter-7a3a5" inkscape:label="Filter">
+			      <title id="title-filter-7a3a5">Filter</title>
+			      <desc id="desc-filter-7a3a5">{
+			"connections":{
+			"POWER":"Filter_POWER"
+			},
+			"options":{
+			"$T":"Filter",
+			"colorOff":"#ececec",
+			"colorOn":"#33ee00"
+			}
+			}</desc>
+			      <g rexsvg:filename="WaterTank.svg" rexsvg:version="13" rexsvg:module="WaterTank" transform="matrix(1.5201383,0.00125077,-0.00162185,1.1723353,441.93427,7.0804003)" id="WaterTank-7a3a5" inkscape:label="WaterTank">
+			        <desc id="desc-t-7a3a5">{
+			"connections":{
+			"level":"Tank_level"
+			},
+			"options":{
+			"$T":"Tank",
+			"capacity":100.0,
+			"colorOfLevel":"#0000ff"
+			}
+			}</desc>
+			        <title id="title44-7a3a5">Tank</title>
+			        <g id="tank_area-7a3a5" rexsvg:tag="tank_area">
+			          <g id="g3170-7a3a5" transform="translate(-83.396522,-54.522518)">
+			            <ellipse ry="4.2426405" rx="13.258252" cy="409.24857" cx="109.07122" id="path3116-7-7a3a5" style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:none" transform="matrix(1.3582674,0,0,1.3582674,81.131484,-145.20622)"/>
+			            <rect style="fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:none" id="rect3112-7a3a5" width="10" height="39" x="224.06065" y="373.6698"/>
+			            <rect y="373.6698" x="227.59619" height="39" width="6.4644661" id="rect3168-7a3a5" style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+			          </g>
+			          <g id="g3180-7a3a5" transform="translate(-81.396522,-54.522518)">
+			            <ellipse ry="4.2426405" rx="13.258252" cy="409.24857" cx="109.07122" transform="matrix(1.2946278,0,0,1.2946278,-32.135418,-120.57602)" id="path3116-7a3a5" style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+			            <rect y="371.6698" x="103.79289" height="39" width="10" id="rect3110-7a3a5" style="fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+			            <rect style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:none" id="rect3146-7a3a5" width="6.0909901" height="39" x="107.7019" y="371.6698"/>
+			          </g>
+			          <rect style="fill:url(#linearGradient2992-7a3a5);fill-opacity:1;fill-rule:evenodd;stroke:none" id="rect2984-7a3a5" width="170.99513" height="258.48492" x="0.018189188" y="38.424664"/>
+			          <path style="fill:url(#linearGradient3036-7a3a5);fill-opacity:1;fill-rule:evenodd;stroke:none" d="M 0.0327692,38.939248 H 170.96482 c 0,0 1.05154,-9.688031 -7.63937,-16.001968 C 124.04994,-5.5963954 47.615238,-9.5534534 7.3372131,22.937277 -0.9331368,29.608649 0.0327692,38.939245 0.0327692,38.939248 Z" id="rect3002-7a3a5" inkscape:connector-curvature="0" sodipodi:nodetypes="ccssc"/>
+			          <path sodipodi:nodetypes="ccssc" inkscape:connector-curvature="0" id="path3102-7a3a5" d="M 0.0327692,39.122303 H 170.96482 c 0,0 1.05154,-9.57799 -7.63937,-15.820209 C 124.04994,-4.9074964 47.615238,-8.8196164 7.3372131,23.302084 -0.9331368,29.897684 0.0327692,39.122303 0.0327692,39.122303 Z" style="fill:url(#radialGradient3104-7a3a5);fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+			          <path style="fill:url(#radialGradient3108-7a3a5);fill-opacity:1;fill-rule:evenodd;stroke:none" d="M 0.0327692,296.65412 H 170.96482 c 0,0 1.05154,9.57799 -7.63937,15.82021 -39.27551,28.20959 -115.710212,32.12171 -155.9882369,10e-6 -8.2703499,-6.5956 -7.3044439,-15.82022 -7.3044439,-15.82022 z" id="path3106-7a3a5" inkscape:connector-curvature="0" sodipodi:nodetypes="ccssc"/>
+			          <g id="g3207-7a3a5">
+			            <ellipse ry="4.2426405" rx="13.258252" cy="409.24857" cx="109.07122" id="path3116-1-7a3a5" style="fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:none" transform="matrix(1.3535534,0,0,1.3535534,-60.501393,-182.17516)"/>
+			            <ellipse ry="4.2426405" rx="13.258252" cy="409.24857" cx="109.07122" id="path3116-1-0-7a3a5" style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke:none" transform="matrix(0.77022004,0,0,0.79968282,3.340293,-0.169873)"/>
+			            <rect y="325.67542" x="82.421501" height="47.110909" width="10" id="rect3114-7a3a5" style="fill:#666666;fill-opacity:1;fill-rule:evenodd;stroke:none"/>
+			            <rect style="fill:#b3b3b3;fill-opacity:1;fill-rule:evenodd;stroke:none" id="rect3166-7a3a5" width="6.1338835" height="47.110909" x="86.287621" y="325.67542"/>
+			          </g>
+			          <rect style="fill:#f2f2f2;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.60000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="level_window-7a3a5" width="26.870056" height="228.39549" x="31.575317" y="56.602112" rexsvg:tag="level_window"/>
+			        </g>
+			      </g>
+			    </g>
+			    <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:26.66666603px;line-height:1.25;font-family:Roboto;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none" x="32.526913" y="68.851601" id="text377-7a3a5"><tspan sodipodi:role="line" id="tspan375-7a3a5" x="32.526913" y="68.851601" style="font-size:53.33333206px;line-height:2.25">HMI Mini Project</tspan></text>
+			    <g rexsvg:filename="TRND.svg" rexsvg:version="17" rexsvg:module="TRND" id="TRND-7a3a5" transform="matrix(1.7627244,0,0,0.4553779,63.131919,558.48034)">
+			      <title id="title2990-7a3a5">TRND</title>
+			      <desc id="desc3795-7a3a5">{
+			"connections":{
+			"TRND":"TRND"
+			},
+			"options":{
+			"$T":"TRND",
+			"bufferSize":-1,
+			"defaultRange":-1,
+			"dygraphOptions":{},
+			"hideLegend":"False",
+			"hideRangeSelector":"False",
+			"refreshRate":-1,
+			"signals":[],
+			"title":"",
+			"yAxis":[
+			{
+			"max":null,
+			"min":null,
+			"type":"linear"
+			}
+			]
+			}
+			}</desc>
+			      <rect style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" id="rect3010-7a3a5" width="640" height="480" x="0" y="0"/>
+			      <text inkscape:label="#text3012" xml:space="preserve" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.33333206px;line-height:0%;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#0000ff;fill-opacity:1;stroke:none" x="319.14062" y="226.0677" id="Text-1-7a3a5"><tspan sodipodi:role="line" id="tspan3014-7a3a5" x="319.14062" y="226.0677" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.33333206px;line-height:125%;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#0000ff;fill-opacity:1">Real time trend</tspan><tspan id="tspan2987-7a3a5" sodipodi:role="line" x="319.14062" y="292.73438" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:53.33333206px;line-height:125%;font-family:'Trebuchet MS';-inkscape-font-specification:'Trebuchet MS, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#0000ff;fill-opacity:1">from TRND block</tspan></text>
+			    </g>
+			    <g rexsvg:filename="HandleValve.svg" rexsvg:version="12" rexsvg:module="HandleValve" transform="matrix(0.48417138,0,0,0.63569159,924.93434,474.80778)" id="HandleValve-7-7a3a5" inkscape:label="HandleValve">
+			      <desc id="desc-valve-6-7a3a5">{
+			"connections":{
+			"FLOW":"Valve_Drain"
+			},
+			"options":{
+			"$T":"Valve_Drain"
+			}
+			}</desc>
+			      <title id="title-valve-3-7a3a5">Valve_Drain</title>
+			      <g id="valve_area-3-7a3a5" rexsvg:tag="valve_area" transform="matrix(2.9847661,0,0,2.5551048,-216.01879,-154.44065)">
+			        <rect style="fill:url(#linearGradient370-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" id="rect8761-6-7-7a3a5" width="71.502785" height="22" x="13.854188" y="-2.0819006"/>
+			        <rect y="-7.5099421" x="26.06728" height="32.856083" width="47.076595" id="rect3145-0-7a3a5" style="fill:url(#linearGradient372-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/>
+			        <rect y="-7.8878565" x="9.175683" height="33.611912" width="7.0447936" id="rect3956-9-7a3a5" style="fill:url(#linearGradient374-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/>
+			        <rect style="fill:url(#linearGradient376-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="rect3960-5-7a3a5" width="7.0447936" height="33.611912" x="83.175682" y="-7.8878565"/>
+			        <g id="handle-0-7a3a5" inkscape:transform-center-y="27.389617" inkscape:transform-center-x="-0.14842334" rexsvg:tag="handle">
+			          <rect inkscape:transform-center-x="-0.084813147" inkscape:transform-center-y="27.372363" rx="6.0695257" y="2.4095294" x="42.687618" height="67.792305" width="14.025768" id="rect3149-8-7a3a5" style="fill:url(#linearGradient378-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" ry="6.0695257"/>
+			          <rect ry="6.0695252" style="opacity:0.5;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none" id="rect3944-3-7a3a5" width="3.6318076" height="60.452827" x="43.366123" y="7.2046113" rx="6.0695257"/>
+			          <path sodipodi:nodetypes="zszszsssz" inkscape:connector-curvature="0" id="path3919-6-7a3a5" d="m 56.727437,9.8231883 c 0,0.8280397 0.336346,3.2820217 -1.052674,4.3039787 -1.38902,1.021958 -4.503407,1.439932 -5.298325,1.439932 -0.794918,0 -4.280156,-0.338822 -5.470447,-1.40827 -1.190291,-1.069449 -0.880552,-3.697564 -0.880552,-4.5256044 0,-0.8280399 0.453579,-3.2929873 1.64387,-4.6011064 1.19029,-1.3081192 3.117293,-1.4594101 4.707129,-1.4594101 1.589836,0 3.601652,0.3254243 4.791943,1.6810344 1.19029,1.35561 1.559056,3.7414059 1.559056,4.5694458 z" style="fill:url(#linearGradient380-7a3a5);fill-opacity:1;fill-rule:nonzero;stroke:none" transform="matrix(1,0,0,1.3394112,-0.6494019,-1.1278042)"/>
+			          <g transform="matrix(1.4960178,0,0,1.4960178,-24.610266,-4.4175569)" id="center_point-8-7a3a5" rexsvg:tag="center_point">
+			            <circle style="fill:#999999;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path3937-6-7a3a5" transform="translate(-0.50887888,-3.3925258)" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			            <circle transform="matrix(0.68727922,0,0,0.68727922,15.166116,0.45349282)" id="path3939-3-7a3a5" style="fill:#e6e6e6;fill-opacity:1;fill-rule:nonzero;stroke:none" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			            <circle style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none" id="path3942-8-7a3a5" transform="matrix(0.35757359,0,0,0.35757359,31.692468,4.5084007)" cx="50.124569" cy="12.298571" r="2.1203287"/>
+			          </g>
+			        </g>
+			      </g>
+			      <path style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" d="M 53.26822,-174.59495 410.0025,-141.01022 53.26822,-88.71299" id="path383-7-7a3a5" inkscape:connector-curvature="0"/>
+			    </g>
+			  </g>
+			</svg>
+			</div>
+
+            <!-- END OF CUSTOM CONTENT -->
+        </main>
+        <script type="text/javascript" data-mdc="MDC init script">
+            window.mdc.autoInit();
+        </script>
+    </div>
+</body>
+
+</html>
