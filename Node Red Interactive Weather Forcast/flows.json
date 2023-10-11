@@ -1,0 +1,1283 @@
+[
+    {
+        "id": "33de25242d8faed2",
+        "type": "subflow",
+        "name": "Subflow 1",
+        "info": "",
+        "in": [
+            {
+                "x": 40,
+                "y": 80,
+                "wires": [
+                    {
+                        "id": "7b874e5bbe7e617e"
+                    }
+                ]
+            }
+        ],
+        "out": []
+    },
+    {
+        "id": "7b874e5bbe7e617e",
+        "type": "function",
+        "z": "33de25242d8faed2",
+        "name": "CSV saving",
+        "func": "var temp = msg.payload.tempc.toFixed(4);\nvar humi = msg.payload.humidity.toFixed(4);\nvar location = msg.payload.location;\n\nmsg = {\"Location\": location,\"Temperature\": temp, \"Humidity\":humi};\nreturn {payload:msg};\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 80,
+        "wires": [
+            [
+                "772558ec39f5d552"
+            ]
+        ]
+    },
+    {
+        "id": "772558ec39f5d552",
+        "type": "csv",
+        "z": "33de25242d8faed2",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "once",
+        "multi": "one",
+        "ret": "\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "0a7de6661afa6b03"
+            ]
+        ]
+    },
+    {
+        "id": "0a7de6661afa6b03",
+        "type": "file",
+        "z": "33de25242d8faed2",
+        "name": "write to file",
+        "filename": "C:\\Users\\adami\\OneDrive\\Pulpit\\Semester4\\SaveCustomWeatherData.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 530,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "09196224e4ca9374",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dca62f1d5443775e",
+        "type": "openweathermap",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Eindhoven",
+        "country": "Netherlands",
+        "language": "en",
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "fabf5c6f765fe3d6",
+                "7ab5f555d13dd643",
+                "28a3701fc8120a7f"
+            ]
+        ]
+    },
+    {
+        "id": "afcd1dabd6e58cf2",
+        "type": "inject",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 560,
+        "wires": [
+            [
+                "dca62f1d5443775e",
+                "5f62fd4fa08c396a",
+                "812c89912cf9a714"
+            ]
+        ]
+    },
+    {
+        "id": "5f62fd4fa08c396a",
+        "type": "openweathermap",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Warsaw",
+        "country": "Poland",
+        "language": "en",
+        "x": 540,
+        "y": 520,
+        "wires": [
+            [
+                "3e38ae19683a2a91",
+                "106acf37852723d3"
+            ]
+        ]
+    },
+    {
+        "id": "fabf5c6f765fe3d6",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Temperature ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tempc",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 400,
+        "wires": [
+            [
+                "63ab124f91aa6a76"
+            ]
+        ]
+    },
+    {
+        "id": "3e38ae19683a2a91",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Temperature ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tempc",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 500,
+        "wires": [
+            [
+                "652d455b95d4fc79"
+            ]
+        ]
+    },
+    {
+        "id": "106acf37852723d3",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Humidity ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 560,
+        "wires": [
+            [
+                "9f60bd88fbaca2cb"
+            ]
+        ]
+    },
+    {
+        "id": "652d455b95d4fc79",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "4a1acadb369bf418",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "temperature Warsaw",
+        "label": "C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00cddb",
+            "#32e600",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "25",
+        "diff": false,
+        "className": "<div style=\"position: fixed; left 500px; top: 600px;\">  </div>",
+        "x": 1140,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "63ab124f91aa6a76",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "df091533ae3919fb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "temperature Eindhoven",
+        "label": "C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00cddb",
+            "#32e600",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "25",
+        "diff": false,
+        "className": "",
+        "x": 1090,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "9f60bd88fbaca2cb",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "4a1acadb369bf418",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humidity Warsaw",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "70",
+        "diff": false,
+        "className": "gauge",
+        "x": 1090,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "812c89912cf9a714",
+        "type": "openweathermap",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Cleveland",
+        "country": "US",
+        "language": "en",
+        "x": 540,
+        "y": 680,
+        "wires": [
+            [
+                "8aaae81f314fa559",
+                "a7b910a5756b931f"
+            ]
+        ]
+    },
+    {
+        "id": "8aaae81f314fa559",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Temperature ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tempc",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 660,
+        "wires": [
+            [
+                "027aa5f62d6c1e04"
+            ]
+        ]
+    },
+    {
+        "id": "a7b910a5756b931f",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Humidity ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 720,
+        "wires": [
+            [
+                "af904a5666e1ee88"
+            ]
+        ]
+    },
+    {
+        "id": "027aa5f62d6c1e04",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "f8bac202fbe387ec",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "temperature Cleveland",
+        "label": "C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00cddb",
+            "#32e600",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "25",
+        "diff": false,
+        "className": "",
+        "x": 1120,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "af904a5666e1ee88",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "f8bac202fbe387ec",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humidity Cleveland",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "70",
+        "diff": false,
+        "className": "gauge",
+        "x": 1070,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "8b81e21ebc6b6c34",
+        "type": "serial in",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "serial": "38d46417b417d1a2",
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "7d35be3b08467999",
+                "567df74845113f90"
+            ]
+        ]
+    },
+    {
+        "id": "ba59898342bc2a5c",
+        "type": "ui_text",
+        "z": "09196224e4ca9374",
+        "group": "ed9f6790.1226c8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Read counter ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 540,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7d35be3b08467999",
+        "type": "ui_text",
+        "z": "09196224e4ca9374",
+        "group": "ed9f6790.1226c8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Read ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 510,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "28a3701fc8120a7f",
+        "type": "debug",
+        "z": "09196224e4ca9374",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "567df74845113f90",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "function 2",
+        "func": "var counter = flow.get(\"counter\") || 0\ncounter ++\nflow.set(\"counter\", counter)\nmsg.payload = counter\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "28a3701fc8120a7f",
+                "ba59898342bc2a5c"
+            ]
+        ]
+    },
+    {
+        "id": "c1df1f13bd7a6eb1",
+        "type": "inject",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1560,
+        "y": 80,
+        "wires": [
+            [
+                "af624acb2d957309",
+                "c2d6e4dc1be7f1bd",
+                "5253b023a94993da",
+                "b156c7fc1495578f"
+            ]
+        ]
+    },
+    {
+        "id": "af624acb2d957309",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "function 3",
+        "func": "var tableData = flow.get(\"savedData\") || [];\n\ntableData.unshift([\n    {\n\n        \"timestamp\"     : new Date(msg.payload).toLocaleString(),\n        //\"City\"          : msg.payload.city,\n        \"temperature\"   : msg.payload.tempc,\n        \"humidity\"      : msg.payload.humidity\n    }\n]);\nmsg.payload = tableData;\n\nflow.set(\"savedData\", tableData)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1940,
+        "y": 160,
+        "wires": [
+            [
+                "1d861936f8ded969"
+            ]
+        ]
+    },
+    {
+        "id": "1d861936f8ded969",
+        "type": "ui_table",
+        "z": "09196224e4ca9374",
+        "group": "ed9f6790.1226c8",
+        "name": "",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 2190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c2d6e4dc1be7f1bd",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "add city",
+        "func": "msg.payload.city = \"Eindhoven\";\nreturn msg.payload.city;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5253b023a94993da",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "add city",
+        "func": "msg.payload.city = \"Warsaw\";\nreturn msg.payload.city;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b156c7fc1495578f",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "add city",
+        "func": "msg.payload.city = \"Cleveland\";\nreturn msg.payload.city;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1800,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59b11627295235c3",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "savedData",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1730,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d24e4717df1b2369",
+        "type": "inject",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1540,
+        "y": 640,
+        "wires": [
+            [
+                "59b11627295235c3"
+            ]
+        ]
+    },
+    {
+        "id": "a1ccfe8ba04f25e2",
+        "type": "join",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 1570,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3241f215d3af6bc1",
+        "type": "debug",
+        "z": "09196224e4ca9374",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1260,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "cefd35f6183dbed4",
+        "type": "ui_form",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "label": "",
+        "group": "ed9f6790.1226c8",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "options": [
+            {
+                "label": "City",
+                "value": "city",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "Country",
+                "value": "country",
+                "type": "text",
+                "required": false,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "city": "",
+            "country": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 770,
+        "y": 940,
+        "wires": [
+            [
+                "5a63e422c4779972",
+                "3241f215d3af6bc1"
+            ]
+        ]
+    },
+    {
+        "id": "5a63e422c4779972",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "input",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "40bf25d47c796b30",
+        "type": "openweathermap",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "",
+        "country": "",
+        "language": "en",
+        "x": 1250,
+        "y": 1040,
+        "wires": [
+            [
+                "80ea4d0b59ede7e4",
+                "4f1a94a82c886cfb",
+                "c9c5751ac2ad85ba",
+                "3241f215d3af6bc1",
+                "0a0580c4c82a92ca"
+            ]
+        ]
+    },
+    {
+        "id": "2cb5d16569b91b8e",
+        "type": "inject",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 810,
+        "y": 1040,
+        "wires": [
+            [
+                "311656c0adeae58a"
+            ]
+        ]
+    },
+    {
+        "id": "311656c0adeae58a",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "function 4",
+        "func": "var imp = global.get(\"input\");\nmsg={\n    location:{\n        city: imp.city,\n        country: imp.country\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 1040,
+        "wires": [
+            [
+                "40bf25d47c796b30"
+            ]
+        ]
+    },
+    {
+        "id": "80ea4d0b59ede7e4",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.location",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1520,
+        "y": 940,
+        "wires": [
+            [
+                "77541656e47ee5c6"
+            ]
+        ]
+    },
+    {
+        "id": "4f1a94a82c886cfb",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tempc",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1520,
+        "y": 1040,
+        "wires": [
+            [
+                "6b5f99592cbd35ba",
+                "ba6c77f8061055b2",
+                "939e719c41e2cd80"
+            ]
+        ]
+    },
+    {
+        "id": "c9c5751ac2ad85ba",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1520,
+        "y": 1160,
+        "wires": [
+            [
+                "c6aee22ebcd57fbe"
+            ]
+        ]
+    },
+    {
+        "id": "77541656e47ee5c6",
+        "type": "ui_text",
+        "z": "09196224e4ca9374",
+        "group": "204ab2bee9a236f1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Location",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1720,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "6b5f99592cbd35ba",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "204ab2bee9a236f1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "temperature custom",
+        "label": "C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "50",
+        "colors": [
+            "#00cddb",
+            "#32e600",
+            "#ca3838"
+        ],
+        "seg1": "10",
+        "seg2": "25",
+        "diff": false,
+        "className": "<div style=\"position: fixed; left 500px; top: 600px;\">  </div>",
+        "x": 1760,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "c6aee22ebcd57fbe",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "204ab2bee9a236f1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humidity custom",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "70",
+        "diff": false,
+        "className": "gauge",
+        "x": 1740,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "8fde210539a2b380",
+        "type": "serial out",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "serial": "38d46417b417d1a2",
+        "x": 2150,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "939e719c41e2cd80",
+        "type": "debug",
+        "z": "09196224e4ca9374",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2120,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "7ab5f555d13dd643",
+        "type": "change",
+        "z": "09196224e4ca9374",
+        "name": "Humidity ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.humidity",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 440,
+        "wires": [
+            [
+                "75f89043f7354df1"
+            ]
+        ]
+    },
+    {
+        "id": "75f89043f7354df1",
+        "type": "ui_gauge",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "group": "df091533ae3919fb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "humidity Eindhoven",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "70",
+        "diff": false,
+        "className": "gauge",
+        "x": 1090,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "0a0580c4c82a92ca",
+        "type": "subflow:33de25242d8faed2",
+        "z": "09196224e4ca9374",
+        "name": "Save and write csv file",
+        "x": 1560,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "a051397f1522eb28",
+        "type": "chartjs-line",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "path": "charts",
+        "charttitle": "Chart title",
+        "xaxis": "Item",
+        "yaxis": "Value",
+        "x": 1650,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e100db35431eaa0",
+        "type": "inject",
+        "z": "09196224e4ca9374",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1440,
+        "y": 1240,
+        "wires": [
+            [
+                "a051397f1522eb28"
+            ]
+        ]
+    },
+    {
+        "id": "ba6c77f8061055b2",
+        "type": "function",
+        "z": "09196224e4ca9374",
+        "name": "fixed ",
+        "func": "msg.payload = msg.payload.toFixed(1);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1930,
+        "y": 980,
+        "wires": [
+            [
+                "8fde210539a2b380",
+                "939e719c41e2cd80"
+            ]
+        ]
+    },
+    {
+        "id": "4a1acadb369bf418",
+        "type": "ui_group",
+        "name": "Warsaw",
+        "tab": "8be53847c1a26213",
+        "order": 5,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "df091533ae3919fb",
+        "type": "ui_group",
+        "name": "Eindhoven",
+        "tab": "8be53847c1a26213",
+        "order": 4,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f8bac202fbe387ec",
+        "type": "ui_group",
+        "name": "Cleveland",
+        "tab": "8be53847c1a26213",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "38d46417b417d1a2",
+        "type": "serial-port",
+        "serialport": "COM6",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "ed9f6790.1226c8",
+        "type": "ui_group",
+        "name": "Result",
+        "tab": "8be53847c1a26213",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "204ab2bee9a236f1",
+        "type": "ui_group",
+        "name": "Custom",
+        "tab": "8be53847c1a26213",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8be53847c1a26213",
+        "type": "ui_tab",
+        "name": "Advanced Visualisation",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
