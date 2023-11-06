@@ -1,0 +1,113 @@
+/****************************************/
+/*
+/*GENERAL (╯°□°)╯︵◓
+/*
+/***************************************/
+@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
+
+:root {
+    --yellow: #fcd453;
+    --red:#d04e31;
+    --electric: #ffef88;
+    --grass:#aab767;
+    --fire:#f26641;
+    --water:#5178f3;
+    --normal:#A8A77A;
+    --fighting:#C22E28;
+    --flying:#A98FF3;
+    --poison:#A33EA1;
+    --ground:#E2BF65;
+    --rock:#B6A136;
+    --bug:#A6B91A;
+    --ghost:#735797;
+    --steel:#B7B7CE;
+    --psychic:#F95587;
+    --ice:#96D9D6;
+    --dragon:#6F35FC;
+    --dark:#705746;
+    --fairy:#D685AD;
+    --normal:#fbdbe4;
+}
+
+h2{
+    font-family: 'Pokemon Solid', sans-serif;                                
+}
+h3{
+    font-family: 'Pokemon Solid', sans-serif;                                
+}
+h4{
+    font-family: 'Pokemon Solid', sans-serif;                                
+}
+.abilities{
+    font-family: 'Pokemon Solid', sans-serif; 
+    font-size: 20px;
+}
+
+*                                       { box-sizing: border-box; margin: 0; padding: 0; }
+body                                    { background: url("../img/xybattle.png")no-repeat; background-size: cover; }
+#pokemonlogo                            { max-width: 400px; width: 100%; display: block; margin:50px auto; }
+#battlefield                            { display: flex; justify-content: space-around; }
+.electric                               { background-color: var(--electric); }
+.grass                                  { background-color: var(--grass); }
+.fire                                   { background-color: var(--fire); }
+.water                                  { background-color: var(--water); }
+.fighting                                { background-color: var(--fighting); }
+.flying                                  { background-color: var(--flying); }
+.poison                                  { background-color: var(--poison); }
+.ground                                  { background-color: var(--ground); }
+.rock                                   { background-color: var(--rock); }
+.bug                                    { background-color: var(--bug); }
+.ghost                                  { background-color: var(--ghost); }
+.steel                                  { background-color: var(--steel); }
+.psychic                                { background-color: var(--psychic); }
+.ice                                    { background-color: var(--ice); }
+.dragon                                 { background-color: var(--dragon); }
+.dark                                   { background-color: var(--dark); }
+.fairy                                  { background-color: var(--fairy); }
+.normal                                  { background-color: var(--normal); }
+/****************************************/
+/*
+/*POKE CARDS (◍ㅇᆽㅇ◍)
+/*
+/***************************************/
+.pokecard                               { width: 400px; height: 550px; border-radius:10px; margin: 10px; filter: drop-shadow(5px 5px 10px #000000); position: relative;  transform: perspective(1600px); transform-style: preserve-3d; transition: all 0.4s ease; position: relative;}
+.pokecard .hover		                { height: 50%; position: absolute; width: 50%; z-index: 300; }
+.pokemon                                { padding: 15px; border-radius: 20px; transform: perspective(1600px); transform-style: preserve-3d; transition: all 0.4s ease; position: relative; border: 15px solid var(--yellow); }
+
+/*the fun movement stuff*/
+.pokemon::before                        { content: ""; display: block; height: 100%;    left: 0; position: absolute; top: 0; width: 100%; }
+.pokemon>div                            { transform: translateZ(16px) scale(0.9); transition: all 0.4s ease; }
+.pokecard .tl                           { left: 0; top: 0; }
+.pokecard .tr                           { right: 0; top: 0; }
+.pokecard .bl       	                { left: 0; bottom: 0;}
+.pokecard .br     	                    { right: 0; bottom: 0; }
+
+.pokecard .tl:hover ~ .pokemon          { transform: perspective(1600px) rotateX(-5deg) rotateY(5deg);}
+.pokecard .tr:hover ~ .pokemon          { transform: perspective(1600px) rotateX(-5deg) rotateY(-5deg); }
+.pokecard .bl:hover ~ .pokemon          { transform: perspective(1600px) rotateX(5deg) rotateY(5deg); }
+.pokecard .br:hover ~ .pokemon          { transform: perspective(1600px) rotateX(5deg) rotateY(-5deg);}
+
+.pokecard .tl:hover ~ .pokemon:before    { background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);}
+.pokecard .tr:hover ~ .pokemon:before    { background: linear-gradient(-135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);}
+.pokecard .bl:hover ~ .pokemon:before    { background: linear-gradient(45deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);}
+.pokecard .br:hover ~ .pokemon:before    { background: linear-gradient(-45deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%);}
+
+.pokecard .tl:hover ~ .pokemon>div       { transform: translate3d(-0.1px, -0.1px, 16px) scale(0.9);}
+.pokecard .tr:hover ~ .pokemon>div       { transform: translate3d(0.1px, -0.1px, 16px) scale(0.9);}
+.pokecard .bl:hover ~ .pokemon>div       { transform: translate3d(-0.1px, 0.1px, 16px) scale(0.9);}
+.pokecard .br:hover ~ .pokemon>div       { transform: translate3d(0.1px, 0.1px, 16px) scale(0.9);}
+
+
+
+
+.pokemon h3                             { font-size: 15px; }
+.pokemon .basicinfo                     { display: flex; justify-content: space-between; }
+.pokemon .basicinfo span                { color:var(--red); font-weight: bold; }
+.pokemon .img                           { border: 5px solid var(--yellow); filter: drop-shadow(5px 5px 10px #000000); background-color: rgb(255 255 252 / 25%); }
+.pokemon img                            { height: 200px; display: block; margin: 0 auto;}
+
+/****************************************/
+/*some links
+https://guiguilegui.wordpress.com/2016/05/23/pokemon-type-classifier-using-their-colors/
+
+/***************************************/
