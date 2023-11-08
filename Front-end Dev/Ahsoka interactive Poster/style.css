@@ -1,0 +1,151 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
+.Box{
+
+}
+.Photo{
+        align-items: center;
+        border:1px black;
+        display: block;
+        margin: auto;
+        padding-top: 5%;}
+.PhotoLSL{
+  align-items: center;
+  border: 1px black;
+  /* display: inline; */
+  margin: auto;
+  /* margin-right: 70%; */
+  /* margin-top: 10%; */
+  position: absolute;
+  z-index: 9;
+}
+.PhotoLSS{
+  align-items: center;
+  border:1px black;
+  /* margin-left: 37%; */
+  /* margin-top: -0.5%; */
+  left: 1506px;
+  top: 115px;
+  transform: rotate(180deg);
+  position: absolute;
+  z-index: 10;
+}
+
+.blade{
+  display: none;
+  background: white;
+  width: 1100px;
+  height: 2em;
+  /* margin-top: 17%; */
+  /* margin-left: 50%; */
+  border-radius: 0% 50% 50% 0%;
+  box-shadow: 0 0 2em rgb(46,103,248);
+  position: absolute;
+  left: 318px;
+  top: 41px;
+  /* object-position: right; */
+  animation-name: LBlade;
+  animation-duration: 2s;
+  float: left;
+}
+
+.bladeS{
+  display: none;
+  background: white;
+  width: 798px;
+  height: 2em;
+  /* margin-left: 15%; */
+  right: 284px;
+  top: 121px;
+  border-radius: 50% 0% 0% 50%;
+  box-shadow: 0 0 2em rgb(46,103,248);
+  position: relative;
+  object-position: left;
+  z-index: 1;
+  animation-name: SBlade;
+  animation-duration: 2s;
+  float: right;
+}
+.HiddenBox1{
+  display:none;
+  position:absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: 7%;
+  background: none;
+  width: 60%;
+  animation-name: HiddenBox1;
+  animation-duration: 2s;
+
+}
+.HiddenBox2{
+  display:none;
+  position:absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.show {display: grid;
+  grid-template-columns: 1fr 4fr;}
+.show1 {display:inline;}
+a{
+  color:snow;
+  margin-top: 0%;
+  display: flex;
+  margin-left: 10%;
+  font-family: 'Star Wars', sans-serif;
+  font-size: 18px;
+}
+img{
+  border-radius: 10%;
+  display: flex;
+}
+body{
+  background-image: url(StarsBackground2.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+.Box1{
+position: relative;
+}
+.Box2{
+position: relative;
+}
+#abc {
+  width: 100%;
+  height: 100px;
+  background-color: pink;
+  animation-name: reducetime;
+  animation-duration: 1s;
+  float: right;
+}
+
+@keyframes HiddenBox1 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100px;
+  }
+}
+@keyframes SBlade {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 800px;
+  }
+}
+@keyframes LBlade {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 1000px;
+  }
+}
+      

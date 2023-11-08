@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ahsoka "Poster"</title>
+    <link rel="stylesheet" href ="style.css">
+    <link href="https://fonts.cdnfonts.com/css/star-wars" rel="stylesheet">
+</head>
+<main>
+<body>
+    <div class="Photo" id="Photo"><img class="Photo" src="ahsokalogo1.png" width="50%" height="25%"></div>
+    <div class="Box"id="Box">
+        <div class="Box1">
+            <div class="PhotoLSL" for="btnControlL" onclick="dropMe1(),dropMe3()"><img class="Photo" src="ahsokaLightsaberL.png" id="btnLeft"> </div>
+            <div class="blade" id ="dropdown3"></div>
+            <div class="HiddenBox1" id="dropdown1">                                 
+                <img src="ahsokaIMG.jpg">
+                <a>Ahsoka Tano, a Togruta female, was a Force-sensitive outcast from the Jedi order who, after the Clone Wars, helped establish a network of various rebel cells against the Galactic Empire. Tano was discovered on her homeworld of Shili by Jedi Master Plo Koon, who brought her to the Jedi Temple on Coruscant to receive Jedi training. Following the outbreak of the Clone Wars, Jedi Grand Master Yoda assigned the young Tano to be the Padawan learner of Jedi Knight Anakin Skywalker, who nicknamed her "Snips" when she joined him at the Battle of Christophsis. Whereas Tano was eager to prove herself, Skywalker had a reputation for recklessness, and they had a rather difficult start as master and apprentice. Yet they worked together to rescue Rotta, the son of crime lord Jabba Desilijic Tiure, and returned Rotta to his father, thus facilitating a crucial alliance between the Hutt Clan and the Galactic Republic.</a> 
+            </div>
+        </div>
+        <div class="Box2">
+            <div class="PhotoLSS" for="btnControlS" onclick="dropMe2(),dropMe4()"><img class="Photo" src="ahsokaLightsaberS.png" id="btnLeft"></div>
+            <div class="bladeS" id ="dropdown4"></div>
+            <div class="HiddenBox1" id="dropdown2">
+                <img src="SabineIMG.jpeg">
+                <!-- <a>Lorem Ipsum and other stuff</a> -->
+            </div>
+        </div>
+    </div>
+</body>
+</main>
+
+<script>
+    function dropMe1() {                                                // this function displays information about Ahsoka after clicking on Lightsaber and deployes the lightsaber animation 
+    document.getElementById("dropdown1").classList.toggle("show");}
+window.onclick = function(event){
+    if (!event.target.matches(".PhotoLSL")){
+        var dropdown1 = document.getElementsByClassName("HiddenBox1");
+        var i;
+        for (i=0; i<dropdown1.length;i++){
+            var openDropdown1 = dropdowns [i];
+            if (openDropdown1.classList.contains('show')){
+                openDropdown1.classList.remove('show');
+            }
+        }
+    }}
+
+
+    var audioOn = new Audio("LSON.mp4");
+    var audioOff = new Audio("LSOFF.mp4");                      // Adding turn on sound 
+    var playFirst = true;
+
+
+    function dropMe3() {
+    document.getElementById("dropdown3").classList.toggle("show");         
+
+    // Here I'm trying to make the sounds play Lightsaber On while turning on and LightSaber off while turning off
+    window.onclick = function(event){
+        if (playFirst){
+            audioOn.play();
+        }else {
+            audioOff.play();
+        } playFirst = !playFirst;}
+        
+
+        if (!event.target.matches(".PhotoLSL")){
+            var dropdown3 = document.getElementsByClassName("blade");
+            var i;
+            for (i=0; i<dropdown3.length;i++){
+                var openDropdown3 = dropdowns [i];
+                if (openDropdown3.classList.contains('show')){
+                    var audio = new Audio("LSOFF.mp4");
+                        audio.play();
+                    openDropdown3.classList.remove('show');
+                }
+            }
+        }
+    }
+function dropMe2() {                                    // this function displays information about Sabine after clicking on Lightsaber 
+    document.getElementById("dropdown2").classList.toggle("show1");}
+window.onclick = function(event){
+    if (!event.target.matches(".PhotoLSL")){
+        var dropdown2 = document.getElementsByClassName("HiddenBox1");
+        var i;
+        for (i=0; i<dropdown2.length;i++){
+            var openDropdown2 = dropdowns [i];
+            if (openDropdown2.classList.contains('show1')){
+                openDropdown2.classList.remove('show1');
+            }
+        }
+    }
+}
+function dropMe4() {
+        var audio = new Audio("LSON.mp4");
+        audio.play();
+    document.getElementById("dropdown4").classList.toggle("show");}
+window.onclick = function(event){
+    var audio = new Audio("LSON.mp4");
+        audio.play();
+    if (!event.target.matches(".PhotoLSL")){
+        var dropdown4 = document.getElementsByClassName("bladeS");              // here the blade animation for short lightsaber is performed, after click
+        var i;
+        for (i=0; i<dropdown4.length;i++){
+            var openDropdown4 = dropdowns [i];
+            if (openDropdown4.classList.contains('show')){
+                var audio = new Audio("LSOFF.mp4");
+                    audio.play();
+                openDropdown4.classList.remove('show');
+            }
+        }
+    }
+}
+</script>
+
+</html>
+
