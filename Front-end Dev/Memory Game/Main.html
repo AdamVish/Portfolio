@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="style.css">
+    <title>Memory game (words edition)</title>
+</head>
+
+<body>
+    <a1>Guess the war criminal</a1>
+    <div class="game">
+        <div class ="row">
+            <div class ="card"> Victoria of Hanover</div>
+            <div class ="card"> Joseph Jughashvili</div>
+            <div class ="card"> Francisco Franco</div>
+            <div class ="card"> Kim Il Sung</div>
+            <div class ="card"> Lyndon B. Johnson</div>
+        </div>  
+        <div class ="row">
+            <div class ="card"> Richard Nixon</div>
+            <div class ="card"> Hồ Chí Minh</div>
+            <div class ="card"> Pol Pot</div>
+            <div class ="card"> Dany Chamoun</div>
+            <div class ="card"> Abimael Guzmán</div>
+        </div>
+        <div class ="row">
+            <div class ="card"> Saddam Hussein</div>
+            <div class ="card"> Slobodan Milošević</div>
+            <div class ="card"> Charles Taylor</div>
+            <div class ="card"> Boris Yeltsin</div>
+            <div class ="card"> Thomas Lubanga</div>
+        </div>  
+        <div class ="row">
+            <div class ="card"> George H.W. Bush</div>
+            <div class ="card"> George W. Bush</div>
+            <div class ="card"> Omar al-Bashir</div>
+            <div class ="card"> Ranil Wickremesinghe</div>
+            <div class ="card"> Bashar al-Assad</div>
+        </div>  
+        <div class ="row">
+            <div class ="card"> Benjamin Netanyahu</div>
+            <div class ="card"> Barack Obama</div>
+            <div class ="card"> Vladimir Putin</div>
+            <div class ="card"> Recep Erdogan</div>
+            <div class ="card"> Xi Jinping</div>
+        </div>  
+    </div>
+    <br><br><br><br><br>
+    <a1>Disclaimer - participants of our competition were chosen based on being a leader of a country that during their ruling commited any type of war crime defined by UN in articel 8 of Rome Statute
+        of the
+        International
+        Criminal
+        Court</a1>  <!--disclaimer added to minimalise my chance of getting sued --> 
+</body>
+<script>
+    const colors = ["red",'blue','white'];  // declaring colors that user will be able to choose from 
+    let currentColor = 0;
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) =>{
+        card.addEventListener("click", () => {
+            currentColor = (currentColor + 1) % colors.length;
+            card.style.backgroundColor = colors[currentColor];      // added color circulation after click
+        })
+    })
+</script>
+</html>

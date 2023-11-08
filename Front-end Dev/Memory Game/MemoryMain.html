@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href ="style.css">
+    <title>Memory game (words edition)</title>
+</head>
+
+<body>
+    <a1>Guess the war criminal</a1>
+    <table>
+    <div class="game">
+        <tr>
+            <th class="card">Show me row1</th>
+            <th class="card">Show me row1</th>
+            <th class="card">Show me row1</th>
+            <th class="card">Show me row1</th>
+            <th class="card">Show me row1</th>
+        </tr>
+        <tr>
+            <th id="card">Show me row2</th>
+            <th id="card">Show me row2</th>
+            <th id="card">Show me row2</th>
+            <th id="card">Show me row2</th>
+            <th id="card">Show me row2</th>
+        </tr>
+        <tr>
+            <th id="card">Show me row3</th>
+            <th id="card">Show me row3</th>
+            <th id="card">Show me row3</th>
+            <th id="card">Show me row3</th>
+            <th id="card">Show me row3</th>
+        </tr>
+        <tr>
+            <th id="card">Show me row4</th>
+            <th id="card">Show me row4</th>
+            <th id="card">Show me row4</th>
+            <th id="card">Show me row4</th>
+            <th id="card">Show me row4</th>
+        </tr>
+        <tr>
+            <th id="card">Show me row5</th>
+            <th id="card">Show me row5</th>
+            <th id="card">Show me row5</th>
+            <th id="card">Show me row5</th>
+            <th id="card">Show me row5</th>
+        </tr>
+        </table>
+</body>
+
+</html>
+<script>
+    const colors = ["red",'blue','white'];
+    let currentColor = 0;
+    const change = document.getElementsByClassName("card");
+
+    change.addEventListener("click", ()=> {
+        currentColor = (currentColor +1) & colors.length;
+        change.style.backgroundColor = colors[currentColor];
+    })
+   // function onclick(){
+   // var clicked = document.getElementsByid("card")
+   // if(clicked.style.color =="pink"){
+   //     clicked.style.color == "black";
+   // }
+   // else {
+   //     clicked.style.color =="pink";
+   // }
+   //}
+</script>
