@@ -31,6 +31,7 @@ const updatePokemonCard = async (cardElement, pokemonData) => {
     cardElement.querySelector('img').src = pokemonData.sprites.front_default;
     const pokemonType = pokemonData.types[0].type.name;
     cardElement.querySelector('.pokemon').classList.add(pokemonType);
+    cardElement.querySelector('h3').textContent = pokemonType;
 
     const abilitiesList = cardElement.querySelector('.abilities');
     abilitiesList.innerHTML = '';

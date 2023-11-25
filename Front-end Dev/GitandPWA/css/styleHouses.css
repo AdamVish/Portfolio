@@ -1,0 +1,19 @@
+.cardInfo{
+    display: block;
+}
+.name{
+    font-size: 20px black;
+    display: flex;
+}
+.culture{
+    font-size: 20px black;
+    display: flex;
+}
+.house{
+    font-size: 20px black;
+    display: flex;
+}
+h1{
+    font-size: 10px black;
+    display: flex;
+}
